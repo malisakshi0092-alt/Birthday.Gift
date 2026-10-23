@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday ❤️</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffd1dc, #cdb4db);
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 25px;
+            box-shadow: 0 10px 30px #00000020;
+        }
+
+        h1 {
+            color: #d63384;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .gift {
+            font-size: 100px;
+            cursor: pointer;
+            margin: 20px 0;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            background: #ff4f91;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 8px;
+        }
+
+        button:hover {
+            background: #d63384;
+        }
+
+        #surprise {
+            display: none;
+            margin-top: 25px;
+            animation: appear 1s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .heart {
+            color: #ff4f91;
+            font-size: 25px;
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 28px; }
+            .gift { font-size: 80px; }
+            .container { padding: 25px 15px; }
+            button { max-width: 100%; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Happy Birthday, My Special Person! 🎂</h1>
+
+        <p>
+            Today is all about you.
+            I have a little surprise waiting for you. 💗
+        </p>
+
+        <div class="gift" onclick="openGift()">🎁</div>
+
+        <button onclick="openGift()">Open Your Gift ❤️</button>
+
+        <div id="surprise">
+            <h1>Surprise! 🎉</h1>
+
+            <p>
+                You are someone truly special to me.
+                May your life be filled with happiness,
+                beautiful memories, endless smiles,
+                and all the love you deserve.
+            </p>
+
+            <h2>Happy Birthday! 💖</h2>
+
+            <p class="heart">♡ Made with love, just for you ♡</p>
+
+            <button onclick="celebrate()">Celebrate Again 🎊</button>
+        </div>
+    </div>
+
+    <script>
+        let opened = false;
+
+        function openGift() {
+            document.getElementById("surprise").style.display = "block";
+
+            if (!opened) {
+                opened = true;
+                celebrate();
+            }
+        }
+
+        function celebrate() {
+            const duration = 3000;
+            const end = Date.now() + duration;
+
+            const colors = [
+                "#ff4f91",
+                "#ffd166",
+                "#a78bfa",
+                "#06d6a0",
+                "#ffffff"
+            ];
+
+            const timer = setInterval(() => {
+                if (Date.now() > end) {
+                    clearInterval(timer);
+                    return;
+                }
+
+                for (let i = 0; i < 8; i++) {
+                    const confetti = document.createElement("div");
+
+                    confetti.innerHTML = Math.random() > 0.5 ? "❤" : "✦";
+                    confetti.style.position = "fixed";
+                    confetti.style.left = Math.random() * 100 + "vw";
+                    confetti.style.top = "-20px";
+                    confetti.style.color =
+                        colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.fontSize =
+                        (Math.random() * 15 + 10) + "px";
+                    confetti.style.pointerEvents = "none";
+                    confetti.style.zIndex = "9999";
+
+                    document.body.appendChild(confetti);
+
+                    const x = (Math.random() - 0.5) * 200;
+                    const rotation = Math.random() * 720;
+
+                    const animation = confetti.animate([
+                        { transform: "translate(0, 0) rotate(0deg)", opacity: 1 },
+                        {
+                            transform: `translate(${x}px, 100vh) rotate(${rotation}deg)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: Math.random() * 2000 + 2000,
+                        easing: "ease-out"
+                    });
+
+                    animation.onfinish = () => confetti.remove();
+                }
+            }, 150);
+        }
+    </script>
+
+</body>
+</html>
